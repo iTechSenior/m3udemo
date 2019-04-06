@@ -79,24 +79,29 @@ var file_url = "./m3uFiles/m3ufile.m3u";
 var file = fs.createWriteStream('./m3uFiles/m3ufile.m3u');
 var startTime = Date.now();
 
-var request = http.get( URL_TO_REQUEST, function(response) {
+// var request = http.get( URL_TO_REQUEST, function(response) {
     
-    response.pipe(file);
+//     response.pipe(file);
 
-    file
-      .on("finish", function() {
-        var string = fs.readFileSync(file_url, { encoding: "utf8" });
-        var parsedData = parser.parse(string);
+//     file
+//       .on("finish", function() {
+//         var string = fs.readFileSync(file_url, { encoding: "utf8" });
+//         var parsedData = parser.parse(string);
 
-        insertMongodb(parsedData, startTime);
-      })
-      .on("error", function(err) {
-        // Handle errors
-        fs.unlink("file.m3u"); // Delete the file async. (But we don't check the result)
-        console.log(err);
-      });
-  }
-);
+//         insertMongodb(parsedData, startTime);
+//       })
+//       .on("error", function(err) {
+//         // Handle errors
+//         fs.unlink("file.m3u"); // Delete the file async. (But we don't check the result)
+//         console.log(err);
+//       });
+//   }
+// );
+
+var string = fs.readFileSync("m3uFiles/test.m3u", { encoding: "utf8" });
+var parsedData = parser.parse(string); 
+console.log(parsedData);
+
 
 // error handler
 app.use(function(err, req, res, next) {
